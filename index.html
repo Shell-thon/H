@@ -1,127 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<head>
-    <meta charset="UTF-8">
-    <title>BirthdayQueen</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Queen</title>
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/animate.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/vendor/modernizr.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="section1">
-        <!-- Your Existing Section 1 Content -->
+      <div class="row">
+        <div class="columns medium-12 text-center congratulation-text">
+          Congratulation !! Just Scroll Down
+        </div>
+      </div>
+      <div class="login-form">
+        <div class="row">
+          <div class="columns medium-12 text-center">
+            <h2>Enter Code</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns medium-offset-4 medium-2">
+            <input type="text" name="code[]" placeholder="?" maxlength="1" class="code text-center" />
+          </div>
+          <div class="columns medium-2 end">
+            <input type="text" name="code[]" placeholder="?" maxlength="1" class="code text-center" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns medium-12 text-center">
+            <div id="textMachine">
+              <div>
+                <span class="text-error">
+                  Wrong Code
+                  <img src="img/fail1.png" alt="" class="fix-size" />
+                </span>
+              </div>
+              <div>
+                <span class="text-error">
+                  Wrong Code
+                  <img src="img/fail2.png" alt="" class="fix-size" />
+                </span>
+              </div>
+              <div>
+                <span class="text-error">
+                  Wrong Code
+                  <img src="img/fail3.png" alt="" class="fix-size" />
+                </span>
+              </div>
+              <div>
+                <span class="success">
+                  Success !!
+                  <img src="img/success.png" alt="" class="fix-size" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns medium-12 text-center">
+            <button id="unlock" class="round pink">Unlock</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Additional Sections -->
     <div class="success-area">
-        <!-- Your Existing Sections -->
+      <div class="section2">
+        <div class="row">
+          <div class="columns medium-12 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.1s">
+            <img src="img/hbd.png" alt="" />
+            <p>
+              Happy birthday Mira! I wish you good health and long lasting
+              relationship with me forever. May our family be healthy.
+            </p>
+            <p>
+              If you ever feel discouraged, come back and read the two parts I
+              created, as well as this website. Let's always uplift and
+              encourage each other! &gt;3&lt;
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="section3">
+        <div class="row">
+          <div class="columns medium-12 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.1s">
+            <h2>Work</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns medium-6 paragraph wow fadeInLeft" data-wow-duration="2s" data-wow-delay="0.1s">
+            I hope your career flourishes, and you navigate relationships with
+            ease. I'm here to support you in any way I can. Remember, every
+            journey starts with challenges. Don't give up or lose momentum.
+            Keep pushing forward, staying true to your vision. If you encounter
+            obstacles or need assistance, please don't hesitate to reach out.
+            Together, we can overcome anything. ^_^
+          </div>
+          <div class="columns medium-6 text-center wow fadeInRight" data-wow-duration="2s" data-wow-delay="0.1s">
+            <div class="polaroids">
+              <ul>
+                <li>
+                  <a title="Mira baby ^3^" href="#">
+                    <img alt="" src="img/demoimg.jpg" />
+                  </a>
+                  <span class="pin"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Rest of the sections continue similarly -->
     </div>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop">↑</button>
 
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script src="js/wow.js"></script>
     <script src="js/slotmachine.min.js"></script>
     <script>
-        $(document).foundation();
-        new WOW().init();
+      $(document).foundation();
+      new WOW().init();
+      $('.section1').css({
+        width: $(window).width(),
+        height: $(window).height(),
+      });
 
-        // Back to Top Button Logic
-        const backToTopButton = document.getElementById("backToTop");
+      // Polaroid image shake effect
+      $('.polaroids li a').on('mouseenter', function () {
+        var isRunning = $(this).data('isRunning');
+        if (!isRunning) {
+          $(this).data('isRunning', true);
+          var $this = $(this).addClass('shake');
+          setTimeout(function () {
+            $this.removeClass('shake');
+            $this.data('isRunning', false);
+          }, 4500);
+        }
+      });
 
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 200) {
-                backToTopButton.style.display = "flex";
-            } else {
-                backToTopButton.style.display = "none";
-            }
+      // Unlock button logic
+      $('#unlock').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        $('#textMachine').css('display', 'inline-block');
+        var code = '';
+        $.each($('.code'), function (i, v) {
+          code += $(v).val();
         });
 
-        backToTopButton.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
+        if (code == '19') {
+          var machine = $('#textMachine').slotMachine({
+            active: 0,
+            delay: 500,
+            randomize: function (activeElementIndex) {
+              return 3;
+            },
+          });
 
-        // Existing Polaroid Shake Effect and Unlock Button Logic
-        $(".polaroids li a").on("mouseenter", function() {
-            var isRunning = $(this).data("isRunning");
-            if (!isRunning) {
-                $(this).data("isRunning", true);
-                var $this = $(this).addClass("shake");
-                setTimeout(function() {
-                    $this.removeClass("shake");
-                    $this.data("isRunning", false);
-                }, 4500);
-            }
-        });
+          machine.shuffle(5, function () {
+            answerCorrect();
+          });
+        } else {
+          // Fail
+          var machine = $('#textMachine').slotMachine({
+            active: 1,
+            delay: 500,
+            randomize: function (activeElementIndex) {
+              return number;
+            },
+          });
 
-        (function() {
-            var link_element = document.createElement("link"),
-                s = document.getElementsByTagName("script")[0];
-            if (window.location.protocol !== "http:" && window.location.protocol !== "https:") {
-                link_element.href = "http:";
-            }
-            link_element.href += "//fonts.googleapis.com/css?family=Playball:400";
-            link_element.rel = "stylesheet";
-            link_element.type = "text/css";
-            s.parentNode.insertBefore(link_element, s);
+          machine.shuffle(5, function () {
+            number++;
+          });
+        }
+      });
 
-            var number = 0;
-
-            $('#unlock').on('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                $('#textMachine').css('display', 'inline-block');
-                var code = '';
-                $.each($('.code'), function(i, v) {
-                    code += $(v).val();
-                });
-
-                if (code == '19') {
-                    var machine = $('#textMachine').slotMachine({
-                        active: 0,
-                        delay: 500,
-                        randomize: function(activeElementIndex) {
-                            return 3;
-                        }
-                    });
-
-                    machine.setRandomize(3);
-
-                    machine.shuffle(5, function() {
-                        answerCorrect();
-                    });
-                } else {
-                    if (number == 3) { number = 0; }
-
-                    var machine = $('#textMachine').slotMachine({
-                        active: 1,
-                        delay: 500,
-                        randomize: function(activeElementIndex) {
-                            return number;
-                        }
-                    });
-
-                    machine.shuffle(5, function() {
-                        number++;
-                    });
-                }
-            });
-
-            var answerCorrect = function() {
-                $('.login-form').fadeOut();
-                $('.congratulation-text').fadeIn();
-                $('.success-area').css('display', 'block');
-            };
-
-        })();
+      var answerCorrect = function () {
+        $('.login-form').fadeOut();
+        $('.congratulation-text').fadeIn();
+        $('.success-area').css('display', 'block');
+      };
     </script>
-</body>
+  </body>
 </html>
